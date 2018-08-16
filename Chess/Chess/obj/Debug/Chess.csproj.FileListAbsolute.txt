@@ -1,0 +1,10 @@
+W:\井字棋\JinChess\Chess\Chess\bin\Debug\Chess.exe.config
+W:\井字棋\JinChess\Chess\Chess\bin\Debug\Chess.exe
+W:\井字棋\JinChess\Chess\Chess\bin\Debug\Chess.pdb
+W:\井字棋\JinChess\Chess\Chess\obj\Debug\Chess.csprojResolveAssemblyReference.cache
+W:\井字棋\JinChess\Chess\Chess\obj\Debug\Chess.Properties.Resources.resources
+W:\井字棋\JinChess\Chess\Chess\obj\Debug\Chess.csproj.GenerateResource.Cache
+W:\井字棋\JinChess\Chess\Chess\obj\Debug\Chess.exe
+W:\井字棋\JinChess\Chess\Chess\obj\Debug\Chess.pdb
+W:\井字棋\JinChess\Chess\Chess\obj\Debug\Chess.GameInterface.resources
+W:\井字棋\JinChess\Chess\Chess\obj\Debug\Chess.MainInterface.resources
