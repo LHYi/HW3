@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Chess
 {
@@ -40,6 +41,11 @@ namespace Chess
         bool PlayerIsComputer = true;
         private void button1_Click(object sender, EventArgs e)
         {
+            if (Board.XYCoordinate[0, 0] != 0)
+            {
+                MessageBox.Show("点错地方啦！");
+                return;
+            }
             Board.XYCoordinate[0, 0] = -1;
             button1.Text = "X";
             if (IsWin() == 3)
@@ -52,6 +58,11 @@ namespace Chess
 
         private void button2_Click_1(object sender, EventArgs e)
         {
+            if (Board.XYCoordinate[0, 1] != 0)
+            {
+                MessageBox.Show("点错地方啦！");
+                return;
+            }
             Board.XYCoordinate[0, 1] = -1;
             button2.Text = "X";
             if (IsWin() == 3)
@@ -63,6 +74,11 @@ namespace Chess
 
         private void button3_Click_1(object sender, EventArgs e)
         {
+            if (Board.XYCoordinate[0, 2] != 0)
+            {
+                MessageBox.Show("点错地方啦！");
+                return;
+            }
             Board.XYCoordinate[0, 2] = -1;
             button3.Text = "X";
             if (IsWin() == 3)
@@ -75,6 +91,11 @@ namespace Chess
 
         private void button4_Click_1(object sender, EventArgs e)
         {
+            if (Board.XYCoordinate[1,0] != 0)
+            {
+                MessageBox.Show("点错地方啦！");
+                return;
+            }
             Board.XYCoordinate[1, 0] = -1;
             button4.Text = "X";
             if (IsWin() == 3)
@@ -86,6 +107,11 @@ namespace Chess
 
         private void button5_Click_1(object sender, EventArgs e)
         {
+            if (Board.XYCoordinate[1, 1] != 0)
+            {
+                MessageBox.Show("点错地方啦！");
+                return;
+            }
             Board.XYCoordinate[1, 1] = -1;
             button5.Text = "X";
             if (IsWin() == 3)
@@ -96,6 +122,11 @@ namespace Chess
         }
         private void button6_Click_1(object sender, EventArgs e)
         {
+            if (Board.XYCoordinate[1, 2] != 0)
+            {
+                MessageBox.Show("点错地方啦！");
+                return;
+            }
             Board.XYCoordinate[1, 2] = -1;
             button6.Text = "X";
             if (IsWin() == 3)
@@ -107,6 +138,11 @@ namespace Chess
 
         private void button7_Click_1(object sender, EventArgs e)
         {
+            if (Board.XYCoordinate[2,0] != 0)
+            {
+                MessageBox.Show("点错地方啦！");
+                return;
+            }
             Board.XYCoordinate[2, 0] = -1;
             button7.Text = "X";
             if (IsWin() == 3)
@@ -118,6 +154,11 @@ namespace Chess
 
         private void button8_Click_1(object sender, EventArgs e)
         {
+            if (Board.XYCoordinate[2, 1] != 0)
+            {
+                MessageBox.Show("点错地方啦！");
+                return;
+            }
             Board.XYCoordinate[2, 1] = -1;
             button8.Text = "X";
             if (IsWin() == 3)
@@ -129,6 +170,11 @@ namespace Chess
 
         private void button9_Click(object sender, EventArgs e)
         {
+            if (Board.XYCoordinate[2, 2] != 0)
+            {
+                MessageBox.Show("点错地方啦！");
+                return;
+            }
             Board.XYCoordinate[2, 2] = -1;
             button9.Text = "X";
             if (IsWin() == 3)
@@ -410,7 +456,6 @@ namespace Chess
         {
             int[] Angle = { 0, 2, 6, 8 };
             int[] Side = { 1, 3, 5, 7 };
-
             if (Attack())
             {
                 return;
@@ -580,16 +625,80 @@ namespace Chess
             }
             return Draw;
         }
-        public void ShowResult()
+        private void button10_Click(object sender, EventArgs e)
         {
-            if (IsWin() == 1)
-                MessageBox.Show("ManLoose!!!");
-            if (IsWin() == 2)
-                MessageBox.Show("ManWin!!!");
-            if (IsWin() == 0)
-                MessageBox.Show("Draw");
 
         }
 
+        private void button11_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (Board.XYCoordinate[i, j] == 1 || Board.XYCoordinate[i, j] == -1)
+                        return;
+                }
+            }
+            ComputerMove();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            this.Controls.Clear();
+            InitializeComponent();
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Board.XYCoordinate[i, j] = 0;
+                }
+            }
+        }
+        private void button14_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Restart();
+        }
+
+        public void ShowResult()
+        {
+            if (IsWin() == 1)
+            {
+                MessageBox.Show("Clever Dude  !");
+                Write("输啦\r\n");
+            }
+            if (IsWin() == 2)
+            {
+                MessageBox.Show("WinnerWinner  ChickenDinner ！");
+                Write("赢咯\r\n");
+            }
+            if (IsWin() == 0)
+            {
+                MessageBox.Show("Almost Won !");
+                Write("打平了\r\n");
+            }
+
+        }
+        public void Write(string text)
+        {
+            FileStream fs = new FileStream("W:\\JinChess\\Chess\\GameResults.txt", FileMode.Append);
+            StreamWriter sw = new StreamWriter(fs, Encoding.UTF8 );
+            sw.Write(text);
+            sw.Close();
+            fs.Close();
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            //  OpenFileDialog ofd = new OpenFileDialog();
+            //  ofd.ShowDialog();
+            //  string path = ofd.FileName;
+            textBox1.Text = File.ReadAllText("W:\\JinChess\\Chess\\GameResults.txt");   
+        }
     }
 }
