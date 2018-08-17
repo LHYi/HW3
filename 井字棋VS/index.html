@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>沙雕游戏-井字棋</title>
+    <style>
+    </style>
+    <script>
+        var can;
+        can = 0;    
+        var XYCoordinate = "000000000";
+        function change(id, turn) {
+            if (turn == 0) {
+                document.getElementById(id).src = "E.jpg";
+            }
+            else if (turn == 1) {
+                document.getElementById(id).src = "O.jpg";  //电脑
+            }
+            else if (turn == -1) {
+                document.getElementById(id).src = "X.jpg";   //玩家
+            }
+                
+            document.write(id);
+        }
+    </script>
+    <script>
+
+        function mouseclick(id) {
+            
+            if (can)  //允许下,改变图片，上传数据，改变棋盘数组
+            {
+                document.getElementById(id).src = "X.jpg";
+                var x = parseInt(Number(id) / 3);
+                var y = Number(id) % 3;
+                XYCoordinate[Number(id)] = -1;
+                //$.ajax({
+                //    url: "/api/Products",
+                //    type: "PutRecordMove",
+                //    contentType: "application/json; charset=utf-8",
+                //    data: String(x) + String(y),
+                //    success: function (data) {
+                //        ;
+                //    },
+                //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //        alert("请求失败，消息：" + textStatus + "  " + errorThrown);
+                //    }
+                //});                       语法有错？
+               
+            }           
+            can = 0;
+            
+        }
+        $("[value='0']").click(function () {          //传输游戏难度
+
+            $.ajax({
+                url: "/api/Products",
+                type: "PutSetLevel",
+                contentType: "application/json; charset=utf-8",
+                data: '0',
+                success: function () {
+                    alert("添加成功！");
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("请求失败，消息：" + textStatus + "  " + errorThrown);
+                }
+            });
+        });
+        $("[value='1']").click(function () {          //传输游戏难度
+
+            $.ajax({
+                url: "/api/Products",
+                type: "PutSetLevel",
+                contentType: "application/json; charset=utf-8",
+                data: '1',
+                success: function () {
+                    alert("添加成功！");
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("请求失败，消息：" + textStatus + "  " + errorThrown);
+                }
+            });
+        });
+        $("[value='2']").click(function () {          //传输游戏难度
+
+            $.ajax({
+                url: "/api/Products",
+                type: "PutSetLevel",
+                contentType: "application/json; charset=utf-8",
+                data: '2',
+                success: function () {
+                    alert("添加成功！");
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("请求失败，消息：" + textStatus + "  " + errorThrown);
+                }
+            });
+        });
+        
+</script>
+</head>
+<meta charset ="utf-8">
+<body>
+
+        <div>
+            <h2>井字棋大战</h2>
+            <form name="form1" method="post" action="">
+                尊姓大名： <input type="text" name="username"><br>
+                开局先手：
+                <input type="radio" name="first" value="me" onClick="firstme()">我
+                <input type="radio" name="first" value="computer" onClick="firstcomputer()">电脑<br>
+                选择难度：
+                <input type="radio" name="difficulty" value="0" onClick="setdifficulty()">这咋玩啊
+                <input type="radio" name="difficulty" value="1" onClick="setdifficulty()">还行还行
+                <input type="radio" name="difficulty" value="2" onClick="setdifficulty()">高手坟墓
+                <button type="button" onclick="alert('游戏设置成功!')">确认玩家信息</button>
+            </form>
+        </div>
+        <div>
+            <img id="0" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+            <img id="1" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+            <img id="2 " src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+        </div>
+        <div>
+            <img id="3" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+            <img id="4" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+            <img id="5" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+        </div>
+        <div>
+            <img id="6" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+            <img id="7" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+            <img id="8" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+        </div>       
+        <script>
+            
+
+            function receive() {
+                if (can == 0) {
+                    $.ajax({
+                        url: "/api/Products",
+                        type: "PutMove",
+                        contentType: "application/json; charset=utf-8",
+                        success: function () {
+                            XYCoordinate = data;
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("请求失败，消息：" + textStatus + "  " + errorThrown);
+                        }
+                    });
+                }
+            }
+            function reflesh() {
+
+                for (i = 0; i < XYCoordinate.length; i++) {
+
+                    document.getElementById(i).src = "X.jpg";   //玩家  //???? 
+                    document.write(String(i));
+                }
+                    
+
+            }
+            function getwin() {
+                $.ajax({
+                    url: "/api/Products",
+                    type: "GetIsWin",
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        return String(data);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("请求失败，消息：" + textStatus + "  " + errorThrown);
+                    }
+                });
+            }
+            function Put() {               
+                XYCoordinate = '000000000';
+                reflesh();
+            }            
+            Put();
+            function firstme() {
+                can = 1;          //document.form1.first[0].value == "me"
+            }
+            while (2) {
+                if (winshow(getwin()) < 3) {
+                    break;
+                }
+                receive();
+                reflesh();
+                if (winshow(getwin()) < 3) {
+                    break;
+                }
+                can = 1;
+            }
+            function winshow(win) {
+                if (win == '0') {
+                    alert("平局！");
+                }
+                else if (win == '1') {
+                    alert("电脑赢了！");
+                }
+                else if (win == '2') {
+                    alert("你赢了！");
+                }
+                return win;
+            }
+        </script>
+</body>
+</html>
+
