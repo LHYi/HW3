@@ -8,8 +8,7 @@ namespace Chess
 {
     public class ChooseLevel
     {
-        private static int Level
-            {get; set;}
+        private static int Level{get; set;}
         public ChooseLevel()
         {
             Level = 1;

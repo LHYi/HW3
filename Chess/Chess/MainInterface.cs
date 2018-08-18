@@ -12,6 +12,7 @@ namespace Chess
 {
     public partial class MainInterface : Form
     {
+
         public MainInterface()
         {
             InitializeComponent();
@@ -21,6 +22,7 @@ namespace Chess
         {
 
         }
+        GameInterface Start = new GameInterface();
 
         public ChooseLevel Choice = new ChooseLevel ();
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -38,7 +40,6 @@ namespace Chess
         }
         private void StartButton_Click(object sender, EventArgs e)
         {
-            GameInterface Start = new GameInterface();
             Start.Show();
             this.Hide();
 

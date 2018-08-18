@@ -11,7 +11,7 @@ namespace Chess
     {
         public static void Save(string gameResult)
         {
-            FileStream fs = new FileStream("C:\\Users\\Carl\\Desktop\\GameResults.txt", FileMode.Append);
+            FileStream fs = new FileStream("C:\\Users\\Public\\GameResults.txt", FileMode.Append);
             StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
             sw.Write(gameResult);
             sw.Close();
@@ -20,7 +20,7 @@ namespace Chess
 
         public static string  Load()
         {
-            return File.ReadAllText("C:\\Users\\Carl\\Desktop\\GameResults.txt");
+            return File.ReadAllText("C:\\Users\\Public\\GameResults.txt");
         }
     }
 }
