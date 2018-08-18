@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>沙雕游戏-井字棋</title>
+    <script>
+        var can;  //先后手标志
+        var XYCoordinate = [0,0,0,0,0,0,0,0,0]; //棋盘 0：未下，1：电脑下，-1：人下    
+        var nandu = 3;
+        var line = 0;
+        var step = 0;
+        var step0 = 0;
+        var model = 0;
+        function change(id, turn) {           //改变id元素的图片
+            if (turn == 0) {
+                document.getElementById(id).src = "E.jpg";
+            }
+            else if (turn == 1) {
+                document.getElementById(id).src = "O.jpg";  //电脑
+            }
+            else if (turn ==-1) {
+                document.getElementById(id).src = "X.jpg";   //玩家
+            }
+        }
+        function reflesh() {           //刷新页面
+            for (i = 0; i <9; i++) {
+                 change(String(i),XYCoordinate[i]);
+            }           
+        }
+        function Put0() {
+            //棋盘置0并显示
+            XYCoordinate = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            reflesh();
+            can = 0;
+            alert("PUTO");
+            line = 0;
+        }  
+        function mouseclick(id) {
+            if ((can == 1) && (nandu < 3))  //如果设置了难度和先后手，允许下
+            {
+                can = 0;
+                document.getElementById(id).src = "X.jpg";
+                var c = Number(id);
+                XYCoordinate[c] = -1;
+                winshow(getwin());
+                if (nandu < 3) {
+                    computerchess(nandu);
+                    reflesh();                  
+                    winshow(getwin());
+                    can = 1;
+                }
+            }         
+        }
+        function winshow(win) {   //输赢结果
+            if (win == 0) {
+                alert("平局！");
+                nandu = 3;
+            }
+            else if (win == 1) {
+                alert("电脑赢了！");
+                nandu = 3;
+            }
+            else if (win == 2) {
+                alert("你赢了！");
+                nandu = 3;
+            }            
+        }
+        function find(long) {           //横竖斜有一种加起来是long,返回1，如果是-long,返回2，如果同时满足，返回1   其余情况是0
+            var sum;
+            var back=0;
+            for (i = 0; i < 3; i++) {             //横排123
+                sum = 0;
+                sum = XYCoordinate[i * 3] + XYCoordinate[i * 3 + 1] + XYCoordinate[i * 3 + 2];
+                if (sum == long) {
+                    line = i + 1;
+                    return 1;
+                }
+                if (sum == -long) {
+                    line = -i - 1;
+                    back=2;
+                }
+            }
+            for (i = 0; i < 3; i++) {        //竖排456
+                sum = 0;
+                sum = XYCoordinate[i] + XYCoordinate[i + 3] + XYCoordinate[i + 6];
+                if (sum == long) {
+                    line = i + 4;
+                    return 1;
+                }
+                if (sum == -long) {
+                    line = -i - 4;
+                    back = 2;
+                }
+            }
+            sum = 0;
+            sum = XYCoordinate[0] + XYCoordinate[4] + XYCoordinate[8];  //  \斜线7
+            if (sum == long) {
+                line = 7;
+                return 1;
+            }
+            if (sum == -long) {
+                line = -7;
+                back = 2;
+            }
+            sum = 0;
+            sum = XYCoordinate[2] + XYCoordinate[4] + XYCoordinate[6];     //  \斜线8
+            if (sum == long) {
+                line = 8;
+                return 1;
+            }
+            if (sum == -long) {
+                line = -8;
+                back = 2;
+            }
+            return back;
+        }
+        function laststep() {           //line之后都是0
+            if (find(2) == 1) {        //电脑即将赢
+                if ((line < 4) && (line > 0)) {
+                    for (i = 0; i < 3; i++) {
+                        if (XYCoordinate[(line - 1) * 3 + i] == 0) {
+                            XYCoordinate[(line - 1) * 3 + i] = 1;
+                        }
+                    }
+                }
+                if ((line > 3) && (line < 7)) {
+                    for (i = 0; i < 3; i++) {
+                        if (XYCoordinate[(line - 4) + 3 * i] == 0) {
+                            XYCoordinate[(line - 4) + 3 * i] = 1;
+                        }
+                            
+                    }
+                }
+                if (line == 7) {
+                    for (i = 0; i < 3; i++) {
+                        if (XYCoordinate[4 * i] == 0) {
+                            XYCoordinate[4 * i] = 1;
+                        }
+                            
+                    }
+                }
+                if (line == 8) {
+                    for (i = 0; i < 3; i++) {
+                        if (XYCoordinate[2 * i + 2] == 0) {
+                            XYCoordinate[2 * i + 2]= 1;
+                        }
+                            
+                    }
+                }
+            }
+            else if (find(2) == 2) {      //人即将赢
+
+                line = -line;
+                if ((line > 0) && (line < 4)) {
+                    for (i = 0; i < 3; i++) {
+                        if (XYCoordinate[(line - 1) * 3 + i] == 0) {
+                            XYCoordinate[(line - 1) * 3 + i] = 1;
+                        }
+                            
+                    }
+                }
+                if ((line > 3) && (line < 7)) {
+                    for (i = 0; i < 3; i++) {
+                        if (XYCoordinate[(line - 4) + 3 * i] == 0) {
+                            XYCoordinate[(line - 4) + 3 * i] = 1;
+                        }
+                            
+                        
+                    }
+                }
+                if (line == 7) {
+                    for (i = 0; i < 3; i++) {
+                        if (XYCoordinate[4 * i] == 0) {
+                            XYCoordinate[4 * i] = 1;
+                        }
+                            
+                    }
+                }
+                if (line == 8) {
+                    for (i = 0; i < 3; i++) {
+                        if (XYCoordinate[2 * i + 2] == 0) {
+                            XYCoordinate[2 * i + 2] = 1;
+                        }
+                            
+                    }
+                }
+            }
+            line = 0;
+        }
+        function computerchess(difficulty)         //获得棋盘数据，返回输赢变量
+        {
+            if (difficulty == 0) {
+                for (i = 0; i < 9; i++) {
+                    if (XYCoordinate[i] == 0) {
+                        XYCoordinate[i] = 1;
+                        break;
+                    }
+                }
+            }
+            if (difficulty == 1) {
+                if ((find(2) == 1) || (find(2) == 2)) {                    
+                    laststep();
+                }
+                else {
+                    for (i = 0; i < 9; i++) {
+                        if (XYCoordinate[i] == 0) {
+                            XYCoordinate[i] = 1;
+                            break;
+                        }
+                    }
+                }
+             }           
+            if (difficulty == 2) {
+                if ((find(2) == 1) || (find(2) == 2)) {
+                    laststep();
+                }
+                else {
+                    if ((step == 1) && ((XYCoordinate[7] == -1) || (XYCoordinate[3] == -1))) {   //模式1
+                        model = 1;
+                        XYCoordinate[4] = 1;
+                    }
+                    if ((step == 2) && (model == 1)) {
+                        if (XYCoordinate[7] == -1) {
+                            XYCoordinate[0] = 1;
+                        }
+                        else {
+                            XYCoordinate[8] = 1;
+                        }
+                    }
+                    if ((step == 1) && ((XYCoordinate[8] == -1) || (XYCoordinate[0] == -1))) {   //模式2
+                        model = 2;
+                        XYCoordinate[2] = 1;
+                    }
+                    if ((step == 2) && (model == 2)) {
+                        if (XYCoordinate[8] == -1) {
+                            XYCoordinate[0] = 1;
+                        }
+                        else {
+                            XYCoordinate[8] = 1;
+                        }
+                    }
+                    if ((step == 1) && ((XYCoordinate[5] == -1) || (XYCoordinate[1] == -1))) {   //模式3
+                        model = 3;
+                        XYCoordinate[4] = 1;
+                    }
+                    if ((step == 2) && (model == 3)) {
+                        if (XYCoordinate[5] == -1) {
+                            XYCoordinate[8] = 1;
+                        }
+                        else {
+                            XYCoordinate[0] = 1;
+                        }
+                    }
+                    if ((step == 1) && (XYCoordinate[2] == -1)) {   //模式4
+                        model = 4;
+                        XYCoordinate[8] = 1;                 //电脑也可以下0，此时由人的第二步在哪里决定电脑的第三步
+                    }
+                    if ((step == 2) && (model == 4)) {
+                        if (XYCoordinate[7] == -1) {
+                            XYCoordinate[0] = 1;
+                        }
+                        else {
+                            XYCoordinate[8] = 1;
+                        }
+                    }
+                    if ((step == 1) && (XYCoordinate[4] == -1 )) {   //模式5
+                        model = 5;
+                        XYCoordinate[2] = 1;
+                    }
+                    if ((step == 4) && (model == 5)) {
+                        for (i = 0; i < 9; i++) {
+                            if (XYCoordinate[i] == 0) {
+                                XYCoordinate[i] = 1;
+                            }
+                        }
+                    }
+                    if (step == 0) {
+                        if (((XYCoordinate[0] == -1)||(XYCoordinate[2] == -1)||(XYCoordinate[6] == -1)||(XYCoordinate[8] == -1))&&(step0 == 0)){
+                            XYCoordinate[4] = 1;
+                        }
+                        else if ((XYCoordinate[8] == 0) && (step0 == 0)) {
+                            XYCoordinate[8] = 1;
+                        }
+                        else if ((XYCoordinate[8] == -1) && (XYCoordinate[0] == -1) && (step0 == 1) && (XYCoordinate[4] == 1)) {
+                            XYCoordinate[1] = 1;
+                        }
+                        else if ((XYCoordinate[2] == -1) && (XYCoordinate[6] == -1) && (step0 == 1) && (XYCoordinate[4] == 1)) {
+                            XYCoordinate[1] = 1;
+                        }
+                        else {
+                            for (i = 0; i < 9; i++) {
+                                if (XYCoordinate[i] == 0) {
+                                    XYCoordinate[i] = 1;
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+            if (step) {
+                step = step + 1;
+            }
+            else {
+                step0 = step0 + 1;
+            }
+            
+        }
+        function getwin() {          //判断输赢 若继续，返回3 
+            if (find(3)) {
+                return find(3);
+            }
+            else {
+                for (i = 0; i < 9; i++) {
+                    if (XYCoordinate[i] == 0) {
+                        return 3;
+                    }
+                }
+                return 0;
+            }
+            return find(3);
+        }
+    </script>    
+</head>
+<meta charset ="utf-8">
+<body>
+        <div>
+            <h2>井字棋大战</h2>
+            <form name="form1" method="post" action="">
+                尊姓大名： <input type="text" name="username"><br>
+                开局先手：
+                <input type="radio" name="first" value="me" onClick="firstme()">我
+                <input type="radio" name="first" value="computer" onClick="firstcomputer()">电脑<br>
+                选择难度：
+                <input type="radio" name="difficulty" value="0" onClick="setdifficulty0()">这咋玩啊
+                <input type="radio" name="difficulty" value="1" onClick="setdifficulty1()">还行还行
+                <input type="radio" name="difficulty" value="2" onClick="setdifficulty2()">高手坟墓
+                <button type="button" onclick="alert('游戏设置成功!')">确认玩家信息</button>
+            </form>
+        </div>
+        <div>
+            <img id="0" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+            <img id="1" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+            <img id="2" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+        </div>
+        <div>
+            <img id="3" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+            <img id="4" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+            <img id="5" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+        </div>
+        <div>
+            <img id="6" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+            <img id="7" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+            <img id="8" src="E.jpg" width="100" height="100" border="2px" onclick="mouseclick(id)" />
+        </div>       
+<script>                    
+            function init() {                                  //初始化：如果电脑先手，电脑先下一次，否则不下                
+                if ((can == 0) && (nandu < 3)) {
+                    if (nandu < 2) {
+                        alert(nandu);
+                        XYCoordinate[4] = 1;
+                        alert("XYCoordinate");
+                    }
+                    else if (nandu == 2) {
+                        alert(nandu);
+                        XYCoordinate[6] = 1;
+                        alert(XYCoordinate);
+                    }
+                   step = step + 1;
+                   reflesh();                
+                   can = 1;                 
+                  }
+            }
+            function setdifficulty0() {
+                nandu = 0;          //document.getElementsByName("difficulty")[val].value;                  
+                init();
+            }
+            function setdifficulty1() {
+                nandu = 1;          //document.getElementsByName("difficulty")[val].value;     
+                init();
+            }
+            function setdifficulty2() {
+                nandu = 2;          //document.getElementsByName("difficulty")[val].value;   
+                init();
+            }        
+            function firstme() {
+                can = 1;
+            }    
+            function firstcomputer() {
+                can = 0;
+            }
+</script>
+</body>
+</html>
+
