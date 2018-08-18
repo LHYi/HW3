@@ -18,7 +18,6 @@ W:\JinChess\Chess\Chess\obj\Debug\Chess.MainInterface.resources
 W:\JinChess\Chess\Chess\obj\Debug\Chess.csproj.GenerateResource.Cache
 W:\JinChess\Chess\Chess\bin\Debug\Chess.exe
 W:\JinChess\Chess\Chess\bin\Debug\Chess.pdb
-C:\Users\Carl\Desktop\软件工程营\HW\Chess\Chess\obj\Debug\Chess.csprojAssemblyReference.cache
 C:\Users\Carl\Desktop\软件工程营\HW\Chess\Chess\obj\Debug\Chess.GameInterface.resources
 C:\Users\Carl\Desktop\软件工程营\HW\Chess\Chess\obj\Debug\Chess.Properties.Resources.resources
 C:\Users\Carl\Desktop\软件工程营\HW\Chess\Chess\obj\Debug\Chess.MainInterface.resources
@@ -29,3 +28,4 @@ C:\Users\Carl\Desktop\软件工程营\HW\Chess\Chess\obj\Debug\Chess.pdb
 C:\Users\Carl\Desktop\软件工程营\HW\Chess\Chess\bin\Debug\Chess.exe.config
 C:\Users\Carl\Desktop\软件工程营\HW\Chess\Chess\bin\Debug\Chess.exe
 C:\Users\Carl\Desktop\软件工程营\HW\Chess\Chess\bin\Debug\Chess.pdb
+C:\Users\Carl\Desktop\软件工程营\HW\Chess\Chess\obj\Debug\Chess.csprojAssemblyReference.cache
