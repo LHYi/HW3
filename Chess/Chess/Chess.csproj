@@ -46,13 +46,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attack.cs" />
     <Compile Include="ChooseLevel.cs" />
+    <Compile Include="ChessBoard.cs" />
+    <Compile Include="Check.cs" />
+    <Compile Include="ComputerMove.cs" />
+    <Compile Include="Defend.cs" />
+    <Compile Include="EasyMove.cs" />
+    <Compile Include="FillTheOnlyBlankInLine.cs" />
+    <Compile Include="HardMove.cs" />
+    <Compile Include="HellMove.cs" />
+    <Compile Include="Print.cs" />
     <Compile Include="GameInterface.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GameInterface.Designer.cs">
       <DependentUpon>GameInterface.cs</DependentUpon>
     </Compile>
+    <Compile Include="History.cs" />
     <Compile Include="MainInterface.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +72,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transform.cs" />
     <EmbeddedResource Include="GameInterface.resx">
       <DependentUpon>GameInterface.cs</DependentUpon>
     </EmbeddedResource>
