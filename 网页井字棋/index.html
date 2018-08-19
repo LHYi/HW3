@@ -274,10 +274,10 @@
                         }
                     }
                     if (step == 0) {
-                        if (((XYCoordinate[0] == -1)||(XYCoordinate[2] == -1)||(XYCoordinate[6] == -1)||(XYCoordinate[8] == -1))&&(step0 == 0)){
+                        if ((XYCoordinate[4] == 0) && (step0 == 0)){
                             XYCoordinate[4] = 1;
                         }
-                        else if ((XYCoordinate[8] == 0) && (step0 == 0)) {
+                        else if ((step0 == 0) && (XYCoordinate[4] == -1)) {
                             XYCoordinate[8] = 1;
                         }
                         else if ((XYCoordinate[8] == -1) && (XYCoordinate[0] == -1) && (step0 == 1) && (XYCoordinate[4] == 1)) {
@@ -285,6 +285,9 @@
                         }
                         else if ((XYCoordinate[2] == -1) && (XYCoordinate[6] == -1) && (step0 == 1) && (XYCoordinate[4] == 1)) {
                             XYCoordinate[1] = 1;
+                        }
+                        else if ((XYCoordinate[0] == -1) && (XYCoordinate[4] == -1) && (step0 == 1) && (XYCoordinate[8] == 1)) {
+                            XYCoordinate[2] = 1;
                         }
                         else {
                             for (i = 0; i < 9; i++) {
