@@ -26,14 +26,6 @@
                  change(String(i),XYCoordinate[i]);
             }           
         }
-        function Put0() {
-            //棋盘置0并显示
-            XYCoordinate = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-            reflesh();
-            can = 0;
-            alert("PUTO");
-            line = 0;
-        }  
         function mouseclick(id) {
             if ((can == 1) && (nandu < 3))  //如果设置了难度和先后手，允许下
             {
@@ -360,14 +352,10 @@
             function init() {                                  //初始化：如果电脑先手，电脑先下一次，否则不下                
                 if ((can == 0) && (nandu < 3)) {
                     if (nandu < 2) {
-                        alert(nandu);
                         XYCoordinate[4] = 1;
-                        alert("XYCoordinate");
                     }
                     else if (nandu == 2) {
-                        alert(nandu);
                         XYCoordinate[6] = 1;
-                        alert(XYCoordinate);
                     }
                    step = step + 1;
                    reflesh();                
